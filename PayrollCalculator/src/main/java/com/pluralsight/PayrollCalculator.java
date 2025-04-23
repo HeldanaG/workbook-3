@@ -28,7 +28,7 @@ public class PayrollCalculator {
                 if (employeeDetails[0].equalsIgnoreCase("id")){
                     continue;
                 }
-                //ourBufferedReader.readLine() will do same thing like the if , it remove the first line of file 
+                //ourBufferedReader.readLine() will do same thing like the
                 // Create Employee object with corrected field order
                 Employee employeeInfo = new Employee(
                         Integer.parseInt(employeeDetails[0]),    // id
