@@ -25,6 +25,10 @@ public class PayrollCalculator {
                 // Split line by '|'
                 String[] employeeDetails = theLine.split("\\|");
 
+                if (employeeDetails[0].equalsIgnoreCase("id")){
+                    continue;
+                }
+                //ourBufferedReader.readLine() will do same thing like the if , it remove the first line of file 
                 // Create Employee object with corrected field order
                 Employee employeeInfo = new Employee(
                         Integer.parseInt(employeeDetails[0]),    // id
