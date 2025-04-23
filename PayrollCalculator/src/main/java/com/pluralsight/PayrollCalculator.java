@@ -33,7 +33,7 @@ public class PayrollCalculator {
                         Double.parseDouble(employeeDetails[3])  // pay-rate
                 );
 
-                // Print employee payroll info
+                 //Print employee payroll info
                 System.out.printf(
                         "Employee ID: %d | Name: %s | Hours Worked: %.2f | Pay Rate: $%.2f | Gross Pay: $%.2f\n",
                         employeeInfo.getEmployeeId(),
@@ -46,7 +46,8 @@ public class PayrollCalculator {
             ourBufferedReader.close();
 
         } catch (Exception e) {
-            e.printStackTrace();
+           e.printStackTrace();
+
         }
     }
 }
