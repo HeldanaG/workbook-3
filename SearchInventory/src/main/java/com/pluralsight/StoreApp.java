@@ -20,14 +20,17 @@ public class StoreApp {
 
         boolean appRunning = true;
         while (appRunning) {
-            System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~ MAIN MENU~~~~~~~~~~~~~~~~~~~~~~~~~~");
-            System.out.print("What do you want to do?\n" +
-                    "1- List all products\n" +
-                    "2- Lookup a product by its id\n" +
-                    "3- Find all products within a price range\n" +
-                    "4- Add a new product\n" +
-                    "5- Quit the application \n" +
-                    "Enter your command:");
+            System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"+
+                                "            📦 WELCOME TO HELDANA'S STORE MANAGEMENT SYSTEM 📦                    \n"+
+                                "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"+
+                                " What would you like to do today?                                                   \n"+
+                                " 1  List all products                                                               \n"+
+                                " 2️  Look up a product by its ID                                                      \n"+
+                                " 3️  Find products within a price range                                                \n"+
+                                " 4️  Add a new product to the inventory                                                \n"+
+                                " 5️  Exit the application                                                               \n"+
+                                "------------------------------------------------------------------------------------");
+            System.out.print("Please enter your choice (1-5): ");
 
             try {
                 int userChoice = input.nextInt();
@@ -64,24 +67,30 @@ public class StoreApp {
     }
 
     public static void ListAllProducts() {
-        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LIST ALL PRODUCTS ~~~~~~~~~~~~~~~~~~~~~~~~~~");
-        System.out.print("We carry the following inventory:\n");
+        System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"+
+                           "                           📝 PRODUCT INVENTORY                                      \n"+
+                           "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+
+        System.out.println("Here's a list of all available products.\n");
         for (int i = 0; i < inventory.size(); i++) {
             Product p = inventory.get(i);
 
             // sorting the output based on names
             Collections.sort(inventory, Comparator.comparing(Product::getName));
 
-            System.out.printf("The product id is: %d, the product name is %s, the price is $%.2f\n",
+            System.out.printf((i+1) +". The product id is: %d, the product name is %s, the price is $%.2f\n",
                     p.getId(), p.getName(), p.getPrice());
         }
-    }
+        System.out.println("------------------------------------------------------------------------------------\n");
 
+    }
     public static void LookProductByID() {
         boolean appRunning = true;
         while (appRunning) {
             try {
-                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~ LOOK PRODUCT BY ID ~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"+
+                                   "                   🔍 LOOK UP PRODUCT BY ID                                           \n"+
+                                   "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 System.out.print("Enter the Product ID: ");
                 String lookProductID = input.nextLine().trim();
 
@@ -139,6 +148,8 @@ public class StoreApp {
                 continue;
             }
         }
+        System.out.println("------------------------------------------------------------------------------------\n");
+
     }
 
     public static void LookProductByPrice() {
@@ -148,13 +159,17 @@ public class StoreApp {
         // Start of the outer loop
         while (appRunning) {
             try {
-                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~ PRICE RANGE MENU~~~~~~~~~~~~~~~~~~~~~~~~~~");
-                System.out.println("Product Price range Includes:\n" +
-                        "1. $0 -  $9.99\n" +
-                        "2. $10 - $19.99\n" +
-                        "3. $20 - $39.99\n" +
-                        "4. $40 - $59.99\n" +
-                        "5. >= $60");
+                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"+
+                        "                         📦 PRODUCT PRICE RANGE MENU 📦                                       \n"+
+                        "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"+
+                        " Select a price range to search products:                                                      \n"+
+                        " 1  $  0.00 - $  9.99                                                                           \n"+
+                        " 2  $ 10.00 - $ 19.99                                                                           \n"+
+                        " 3  $ 20.00 - $ 39.99                                                                           \n"+
+                        " 4  $ 40.00 - $ 59.99                                                                           \n"+
+                        " 5  >= $ 60.00                                                                                   \n"+
+                        "-------------------------------------------------------------------------------------------------");
+
 
                 // Prompt the user to select a price range
                 System.out.print("Please Enter Your Choice: ");
@@ -219,6 +234,8 @@ public class StoreApp {
                 input.nextLine(); // Clear the input buffer
             }
         }
+        System.out.println("------------------------------------------------------------------------------------\n");
+
     }
 
     public static void AddNewProduct() {
@@ -228,7 +245,9 @@ public class StoreApp {
         // Start of the outer loop
         while (appRunning) {
             try {
-                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~ ADD NEW PRODUCT ~~~~~~~~~~~~~~~~~~~~~~~~~~");
+                System.out.println("\n~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n"+
+                                    "                           📦 ADD NEW PRODUCT 📦                                   \n"+
+                                    "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
                 // create the buffered writer to write to the log file
                 BufferedWriter bufWriter = new BufferedWriter(new FileWriter("src/main/resources/inventory.csv", true));
 
@@ -303,6 +322,8 @@ public class StoreApp {
                 input.nextLine(); // Clear the input buffer
             }
         }
+        System.out.println("------------------------------------------------------------------------------------\n");
+
     }
 
     public static ArrayList<Product> getInventory() {
@@ -315,6 +336,11 @@ public class StoreApp {
 
             String theLine;
             while ((theLine = ourBufferedReader.readLine()) != null) {
+
+                // Skip blank or empty lines
+                if (theLine.trim().isEmpty()) {
+                    continue;
+                }
                 String[] productDetails = theLine.split("\\|");
 
                 //generate a real product
